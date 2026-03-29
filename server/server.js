@@ -17,9 +17,10 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 // --- 2. MIDDLEWARE ---
 app.use(express.json());
 app.use(cors({
-    origin: ["http://localhost:3000", "http://localhost:5173"],
+    origin: ["http://localhost:3000", "http://localhost:5173", "https://your-frontend-vercel-link.vercel.app"], 
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "x-auth-token"]
+    allowedHeaders: ["Content-Type", "x-auth-token", "Authorization"], // Authorization header-um add pannikonga, JWT-ku thevai padum
+    credentials: true
 }));
 
 // --- 3. DATABASE MODELS ---
