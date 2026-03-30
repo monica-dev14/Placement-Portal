@@ -72,8 +72,11 @@ const auth = (req, res, next) => {
     }
 };
 
+const cors = require('cors');
+
+
 app.use(cors({
-    origin: ["https://placement-portal-755s.vercel.app"], 
+    origin: "*", 
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
