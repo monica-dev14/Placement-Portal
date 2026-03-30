@@ -72,33 +72,48 @@ const auth = (req, res, next) => {
     }
 };
 
+app.use(cors({
+    origin: ["https://placement-portal-755s.vercel.app"], 
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+}));
+
 app.get("/", (req, res) => {
     res.send("🚀 SIT Placement Portal Backend is Running Successfully!");
 });
-// --- 5. DB CONNECTION ---
 const connectDB = async () => {
     try {
-        // Render-la irukura MONGO_URI-ah edukkum
-        const conn = await mongoose.connect(process.env.MONGO_URI);
+        // MongoDB Atlas connection options
+        const conn = await mongoose.connect(process.env.MONGO_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+
         console.log(`✅ SIT MongoDB Connected: ${conn.connection.host}`);
 
-        // Default Admin Creation
+        
         const adminExists = await Admin.findOne({ username: 'MonicaAdmin' });
+        
         if (!adminExists) {
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash('SIT_ADMIN_2026', salt);
+            
             await Admin.create({ 
                 username: 'MonicaAdmin', 
                 password: hashedPassword,
-                role: 'SuperAdmin' // Add panna extra feature
+                role: 'SuperAdmin' 
             });
-            console.log("👤 Default Admin 'MonicaAdmin' Created!");
+            console.log("👤 Default Admin 'MonicaAdmin' Created Successfully!");
+        } else {
+            console.log("ℹ️ Admin 'MonicaAdmin' already exists in Database.");
         }
+
     } catch (err) {
         console.error('❌ SIT DB Connection Error:', err.message);
-        process.exit(1); // Connection fail aana server-ah stop panna
+        
     }
 };
+
 
 connectDB();
 // --- 6. ROUTES ---
