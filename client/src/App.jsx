@@ -14,7 +14,8 @@ import StudentLogin from './components/StudentLogin';
 import PlacedStudents from './components/PlacedStudents';
 
 // --- API CONFIG ---
-const API_BASE_URL = 'http://localhost:5000/api/companies';
+const API_BASE_URL = 'https://placement-portal-green-five.vercel.app/api/companies';
+;
 
 // --- HOME PAGE COMPONENT ---
 const Home = ({ companies, onShowDetails }) => (
