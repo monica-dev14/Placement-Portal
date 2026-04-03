@@ -55,7 +55,7 @@ const Admin = ({ setCompanies, companies, placedList, setPlacedList }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/admin/login', { password });
+      const res = await axios.post('https://placement-portal-green-five.vercel.app/api/admin/login', { password });
       if (res.data.token) {
         localStorage.setItem('token', res.data.token);
         setIsAuthorized(true);
@@ -83,7 +83,7 @@ const Admin = ({ setCompanies, companies, placedList, setPlacedList }) => {
           : newDrive.rounds
       };
       
-      const res = await axios.post('http://localhost:5000/api/companies', driveData, {
+      const res = await axios.post('https://placement-portal-green-five.vercel.app/api/companies', driveData, {
         headers: { 'x-auth-token': token }
       });
 
@@ -108,7 +108,7 @@ const Admin = ({ setCompanies, companies, placedList, setPlacedList }) => {
                 return;
             }
 
-            await axios.delete(`http://localhost:5000/api/companies/${id}`, {
+            await axios.delete(`https://placement-portal-green-five.vercel.app/api/companies/${id}`, {
                 headers: { 
                     'x-auth-token': token 
                 }
