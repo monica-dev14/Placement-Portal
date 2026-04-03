@@ -7,7 +7,7 @@ export default defineConfig({
     proxy: {
       // Indha '/api' request-ah ellam backend-ku thalli vidum
       '/api': {
-        target: 'https://placement-portal-green-five.vercel.app',
+        target: '${import.meta.env.VITE_API_URL}',
         changeOrigin: true,
       }
     }

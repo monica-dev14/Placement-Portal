@@ -75,7 +75,7 @@ const auth = (req, res, next) => {
 
 
 app.use(cors({
-    origin: ["http://localhost:5173", "https://placement-portal-green-five.vercel.app"],
+    origin: ["http://localhost:5173", "${import.meta.env.VITE_API_URL}"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "x-auth-token", "Authorization"],
     credentials: true
