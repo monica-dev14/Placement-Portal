@@ -18,7 +18,7 @@ const StudentLogin = ({ onLogin }) => {
     // Validation check for all 5 fields
     if (name && regNo && email && password && department) {
       try {
-        const res = await axios.post('https://placement-portal-green-five.vercel.app/api/students/login', studentData);
+        const res = await axios.post('${import.meta.env.VITE_API_URL}', studentData);
         
         localStorage.setItem('studentName', name);
         localStorage.setItem('studentRegNo', regNo);
