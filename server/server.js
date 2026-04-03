@@ -74,7 +74,12 @@ const auth = (req, res, next) => {
 
 
 
-app.use(cors()); 
+app.use(cors({
+    origin: ["http://localhost:5173", "https://placement-portal-green-five.vercel.app"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "x-auth-token", "Authorization"],
+    credentials: true
+})); 
 app.use(express.json());
 
 
@@ -113,7 +118,7 @@ const connectDB = async () => {
     } catch (err) {
         console.error('❌ SIT DB Error:', err.message);
        
-        process.exit(1); 
+        // process.exit(1); 
     }
 };
 
