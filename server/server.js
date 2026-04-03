@@ -72,52 +72,52 @@ const auth = (req, res, next) => {
     }
 };
 
-const cors = require('cors');
 
 
-app.use(cors({
-    origin: "*", 
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
-}));
+app.use(cors()); 
+app.use(express.json());
+
+
+app.get("/", (req, res) => {
+    res.send("🚀 SIT Placement Portal Backend is Running Successfully!");
+});
 
 app.get("/", (req, res) => {
     res.send("🚀 SIT Placement Portal Backend is Running Successfully!");
 });
 const connectDB = async () => {
     try {
-        // MongoDB Atlas connection options
-        const conn = await mongoose.connect(process.env.MONGO_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+      
+        await mongoose.connect(process.env.MONGO_URI);
+        console.log("✅ SIT DB Connected Successfully");
 
-        console.log(`✅ SIT MongoDB Connected: ${conn.connection.host}`);
-
-        
         const adminExists = await Admin.findOne({ username: 'MonicaAdmin' });
-        
+
         if (!adminExists) {
+            console.log("⏳ Creating default admin...");
+            
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash('SIT_ADMIN_2026', salt);
-            
-            await Admin.create({ 
-                username: 'MonicaAdmin', 
+
+            await Admin.create({
+                username: 'MonicaAdmin',
                 password: hashedPassword,
-                role: 'SuperAdmin' 
+                role: 'SuperAdmin'
             });
+            
             console.log("👤 Default Admin 'MonicaAdmin' Created Successfully!");
         } else {
             console.log("ℹ️ Admin 'MonicaAdmin' already exists in Database.");
         }
 
     } catch (err) {
-        console.error('❌ SIT DB Connection Error:', err.message);
-        
+        console.error('❌ SIT DB Error:', err.message);
+       
+        process.exit(1); 
     }
 };
 
-
+// Start the connection
 connectDB();
 // --- 6. ROUTES ---
 
@@ -236,4 +236,10 @@ app.delete('/api/companies/:id', auth, async (req, res) => {
     }
 });
 
-app.listen(PORT, () => console.log(`🚀 SIT Server running on port ${PORT}`));
+module.exports = app; 
+
+
+if (process.env.NODE_ENV !== 'production') {
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => console.log(`🚀 SIT Server running on port ${PORT}`));
+}
