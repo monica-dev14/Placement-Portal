@@ -26,7 +26,7 @@ const ChatAssistant = () => {
     const fetchHistory = async () => {
         try {
             setLoading(true);
-            const res = await axios.get('http://localhost:5000/api/history');
+            const res = await axios.get('https://placement-portal-green-five.vercel.app/api/history');
             setHistoryList(res.data);
             setViewHistory(true);
         } catch (err) {
@@ -41,7 +41,7 @@ const ChatAssistant = () => {
     const deleteHistory = async () => {
         if (window.confirm("Monica, are you sure you want to delete all history?")) {
             try {
-                await axios.delete('http://localhost:5000/api/history');
+                await axios.delete('https://placement-portal-green-five.vercel.app/api/history');
                 setHistoryList([]); 
                 alert("History Deleted!");
             } catch (err) {
@@ -55,7 +55,7 @@ const ChatAssistant = () => {
         if (isOpen) {
             if (messages.length > 1) {
                 try {
-                    await axios.post('http://localhost:5000/api/history/save', { messages });
+                    await axios.post('https://placement-portal-green-five.vercel.app/api/history/save', { messages });
                     console.log("✅ Chat Session Saved!");
                 } catch (err) {
                     console.error("❌ Save failed:", err);
@@ -80,7 +80,7 @@ const ChatAssistant = () => {
         setLoading(true);
 
         try {
-            const response = await axios.post('http://localhost:5000/api/chat', { prompt: input });
+            const response = await axios.post('https://placement-portal-green-five.vercel.app/api/chat', { prompt: input });
             if (response.data && response.data.reply) {
                 setMessages([...updatedMessages, { role: 'ai', text: response.data.reply }]);
             }
