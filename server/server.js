@@ -87,9 +87,7 @@ app.use(cors({
 app.use(express.json());
 
 
-app.get("/", (req, res) => {
-    res.send("🚀 SIT Placement Portal Backend is Running Successfully!");
-});
+
 
 app.get("/", (req, res) => {
     res.send("🚀 SIT Placement Portal Backend is Running Successfully!");
