@@ -15,7 +15,8 @@ A comprehensive Placement Management System specifically tailored for **Sethu In
 - **Email:** NodeMailer with custom SMTP
 
 
-
+## live demo
+ [View My Project Live 🚀]
 https://github.com/user-attachments/assets/e8af4f9e-9793-4c55-a02d-6341684bcf34
 
 
